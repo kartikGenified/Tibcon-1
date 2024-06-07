@@ -1,4 +1,4 @@
-package com.netcarrots.ozone;
+package com.Tibcon;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

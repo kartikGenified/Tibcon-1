@@ -33,7 +33,7 @@ import { useAddBulkPointOnProductMutation } from "../../apiServices/bulkScan/Bul
 import { setQrIdList } from "../../../redux/slices/qrCodeDataSlice";
 import  Celebrate  from "react-native-vector-icons/MaterialIcons";
 import Error from "react-native-vector-icons/MaterialIcons"
-import { useGetActiveMembershipMutation, useGetMembershipMutation, useGetOzoneActiveMembershipMutation } from '../../apiServices/membership/AppMembershipApi';
+import { useGetActiveMembershipMutation, useGetMembershipMutation, useGetTibconActiveMembershipMutation } from '../../apiServices/membership/AppMembershipApi';
 import ErrorModal from "../../components/modals/ErrorModal";
 import FastImage from "react-native-fast-image";
 import { useGetMappingDetailsByAppUserIdMutation } from "../../apiServices/userMapping/userMappingApi";

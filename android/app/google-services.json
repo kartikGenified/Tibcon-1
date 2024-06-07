@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "267987504542",
-    "project_id": "ozone-70b58",
-    "storage_bucket": "ozone-70b58.appspot.com"
+    "project_id": "Tibcon-70b58",
+    "storage_bucket": "Tibcon-70b58.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:267987504542:android:7391f3698078125ba71a8f",
         "android_client_info": {
-          "package_name": "com.netcarrots.ozone"
+          "package_name": "com.Tibcon"
         }
       },
       "oauth_client": [],

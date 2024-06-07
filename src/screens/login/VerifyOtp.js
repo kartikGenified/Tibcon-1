@@ -599,7 +599,7 @@ const VerifyOtp = ({ navigation, route }) => {
 
 
             }}
-            source={require('../../../assets/images/ozoneWhiteLogo.png')}></Image>
+            source={require('../../../assets/images/TibconWhiteLogo.png')}></Image>
         </View>
         <View
           style={{

@@ -361,7 +361,7 @@ const Dashboard = ({ navigation }) => {
 
  
 
-  // ozone change
+  // Tibcon change
 
   
   
@@ -469,7 +469,7 @@ const Dashboard = ({ navigation }) => {
               setCmpainVideoVisible(false)
             }} />
           </View>
-         {/* Ozone specific change do not show for sales */}
+         {/* Tibcon specific change do not show for sales */}
          {
             userData?.user_type_id !== 13 && 
             <View style={{ width: "90%", height: 50, backgroundColor: 'white', marginBottom: 20, flexDirection: 'row', alignItems: 'center', borderColor: '#808080', borderWidth: 0.3, borderRadius: 10 }}>

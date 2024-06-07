@@ -16,9 +16,9 @@ export const AppMembershipApi = baseApi.injectEndpoints({
     };
     },
     }),
-    getOzoneActiveMembership: builder.mutation({
+    getTibconActiveMembership: builder.mutation({
         query: (token) => {
-            console.log("getOzoneActiveMembership",token)
+            console.log("getTibconActiveMembership",token)
         return {
         method: "GET",
         url: `/api/tenant/oopl/membership`,
@@ -48,4 +48,4 @@ export const AppMembershipApi = baseApi.injectEndpoints({
     }),
    });
    
-   export const { useGetActiveMembershipMutation,useGetMembershipMutation,useGetOzoneActiveMembershipMutation} = AppMembershipApi;
+   export const { useGetActiveMembershipMutation,useGetMembershipMutation,useGetTibconActiveMembershipMutation} = AppMembershipApi;

@@ -362,7 +362,7 @@ const Passbook = ({ navigation }) => {
                             <NavigateTO visibleTitle={t("points history")} title={"Points History"} discription={t("list of points redeemed by you")} image={require('../../../assets/images/coinStack.png')}></NavigateTO>
                         }
 
-                        {/* ozone change */}
+                        {/* Tibcon change */}
                         {userData.user_type !== "dealer" && <NavigateTO visibleTitle={t("scanned history")} title={"Scanned History"} discription={t('list of products scanned by you')} image={require('../../../assets/images/scannedHistory.png')}></NavigateTO>}
 
                         <NavigateTO visibleTitle={t("redeemed history")} title="Redeemed History" discription={t("list of products redeemed by you")} image={require('../../../assets/images/redeemed_icon.png')}></NavigateTO>
@@ -430,7 +430,7 @@ const Passbook = ({ navigation }) => {
                                 <GridVIew title={t("points history")} discription=" list of points redeemed by you" image={require('../../../assets/images/coinStack.png')}></GridVIew>
 
                             }
-                            {/* ozone change */}
+                            {/* Tibcon change */}
 
                             {userData.user_type !== "dealer" && <GridVIew title={t("scanned history")} discription="" image={require('../../../assets/images/scannedHistory.png')}></GridVIew>}
                             <GridVIew title={t("redeemed history")}  discription=" list of products redeemed by you" image={require('../../../assets/images/redeemed_icon.png')}></GridVIew>

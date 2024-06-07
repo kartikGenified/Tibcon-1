@@ -31,7 +31,7 @@ const Drawer = createDrawerNavigator();
 const CustomDrawer = () => {
   const [profileImage, setProfileImage] = useState()
   const [myProgramVisible, setMyProgramVisibile] = useState(false);
-  const [ozoneProductVisible, setOzoneProductVisible] = useState(false);
+  const [TibconProductVisible, setTibconProductVisible] = useState(false);
   const [communityVisible, setCommunityVisible] = useState(false);
   const [KnowledgeHubVisible, setKnowledgeHubVisible] = useState(false);
   const [message, setMessage] = useState();
@@ -598,7 +598,7 @@ const CustomDrawer = () => {
         </View>
         {/* My Program ending*/}
 
-        {/* Ozone Products Starting */}
+        {/* Tibcon Products Starting */}
         <View
           style={{
             minHeight: 54,
@@ -615,7 +615,7 @@ const CustomDrawer = () => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              setOzoneProductVisible(!ozoneProductVisible)
+              setTibconProductVisible(!TibconProductVisible)
             }}
             style={{
               width: '20%',
@@ -627,8 +627,8 @@ const CustomDrawer = () => {
 
             {/* <SvgUri width={40} height={40} uri={image}></SvgUri> */}
             {/* <Icon size={size} name="bars" color={ternaryThemeColor}></Icon> */}
-            {!ozoneProductVisible && <Image style={{ height: 20, width: 20, resizeMode: 'contain', transform: [{ rotate: '270deg' }], marginTop: 4 }} source={require('../../assets/images/arrowDown.png')}></Image>}
-            {ozoneProductVisible && <Image style={{ height: 20, width: 20, resizeMode: 'contain' }} source={require('../../assets/images/arrowDown.png')}></Image>}
+            {!TibconProductVisible && <Image style={{ height: 20, width: 20, resizeMode: 'contain', transform: [{ rotate: '270deg' }], marginTop: 4 }} source={require('../../assets/images/arrowDown.png')}></Image>}
+            {TibconProductVisible && <Image style={{ height: 20, width: 20, resizeMode: 'contain' }} source={require('../../assets/images/arrowDown.png')}></Image>}
           </TouchableOpacity>
 
 
@@ -641,12 +641,12 @@ const CustomDrawer = () => {
             }}>
             <TouchableOpacity
               onPress={() => {
-                setOzoneProductVisible(!ozoneProductVisible)
+                setTibconProductVisible(!TibconProductVisible)
               }}>
-              <Text style={{ color: primaryThemeColor, fontSize: 15 }}>{t("Ozone Products")}</Text>
+              <Text style={{ color: primaryThemeColor, fontSize: 15 }}>{t("Tibcon Products")}</Text>
             </TouchableOpacity>
 
-            {ozoneProductVisible &&
+            {TibconProductVisible &&
               <View style={{ marginTop: 5 }}>
                 <TouchableOpacity style={{ marginTop: 5, marginBottom: 5 }} onPress={() => {
                   navigation.navigate('ProductCatalogue')
@@ -655,8 +655,8 @@ const CustomDrawer = () => {
                   <Text style={{ fontSize: 15, color: ternaryThemeColor }}>{t("Product Catalogue")}</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ marginTop: 5, marginBottom: 5 }} onPress={() => { Linking.openURL("https://www.ozone-india.com/") }}>
-                  <Text style={{ fontSize: 15, color: ternaryThemeColor }}>{t("jump to ozone website")}</Text>
+                <TouchableOpacity style={{ marginTop: 5, marginBottom: 5 }} onPress={() => { Linking.openURL("https://www.Tibcon-india.com/") }}>
+                  <Text style={{ fontSize: 15, color: ternaryThemeColor }}>{t("jump to Tibcon website")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{ marginTop: 5, marginBottom: 5 }} onPress={() => { navigation.navigate("ProductCategory") }}>
@@ -668,7 +668,7 @@ const CustomDrawer = () => {
 
           </View>
         </View>
-        {/* Ozone Products ending*/}
+        {/* Tibcon Products ending*/}
 
         {/* Community Starting */}
         <View

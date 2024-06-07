@@ -541,7 +541,7 @@ const Splash = ({ navigation }) => {
 
   useEffect(() => {
     getUsers();
-    getAppTheme("ozone")
+    getAppTheme("Tibcon")
     const checkToken = async () => {
       const fcmToken = await messaging().getToken();
       if (fcmToken) {
@@ -589,7 +589,7 @@ const Splash = ({ navigation }) => {
         if (!getMinVersionSupportData?.body?.data) {
           Alert.alert('Kindly update the app to the latest version', 'Your version of app is not supported anymore, kindly update', [
             
-            {text: 'Update', onPress: () => Linking.openURL("https://play.google.com/store/apps/details?id=com.netcarrots.ozone")},
+            {text: 'Update', onPress: () => Linking.openURL("https://play.google.com/store/apps/details?id=com.Tibcon")},
           ]);
         }
       }
@@ -598,7 +598,7 @@ const Splash = ({ navigation }) => {
         {
           Alert.alert('Kindly update the app to the latest version', 'Your version of app is not supported anymore, kindly update', [
             
-            {text: 'Update', onPress: () => Linking.openURL("https://play.google.com/store/apps/details?id=com.netcarrots.ozone")},
+            {text: 'Update', onPress: () => Linking.openURL("https://play.google.com/store/apps/details?id=com.Tibcon")},
           ]);
         }
       }
@@ -616,7 +616,7 @@ const Splash = ({ navigation }) => {
       dispatch(setAppVersion(currentVersion))
 
         getMinVersionSupportFunc(currentVersion)
-        getAppTheme("ozone")
+        getAppTheme("Tibcon")
         getData()
   },[isConnected,locationStatusChecked])
   
@@ -803,7 +803,7 @@ const Splash = ({ navigation }) => {
           message={message}
           openModal={error}></ErrorModal>
       }
-      {/* <Image  style={{ width: 200, height: 200,  }}  source={require('../../../assets/gif/ozonegif.gif')} /> */}
+      {/* <Image  style={{ width: 200, height: 200,  }}  source={require('../../../assets/gif/Tibcongif.gif')} /> */}
         {
       
        

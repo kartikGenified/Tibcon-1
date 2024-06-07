@@ -203,7 +203,7 @@ else{
   console.log("qrDataArray",qrData?.split("-"))
     if(qrData?.split("-").length===1)
     {
-      requestData = {unique_code: "ozone-"+qrData};
+      requestData = {unique_code: "Tibcon-"+qrData};
 
     }
     else if(qrData?.split("-").length===2){

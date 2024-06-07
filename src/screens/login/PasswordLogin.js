@@ -550,8 +550,8 @@ const PasswordLogin = ({ navigation, route }) => {
 
 
             }}
-            source={require('../../../assets/images/ozoneWhiteLogo.png')}></Image>
-          {/* ozone change */}
+            source={require('../../../assets/images/TibconWhiteLogo.png')}></Image>
+          {/* Tibcon change */}
          
 
           {route.params.userType==="dealer" &&  <View style={{width:150, alignItems: 'center', justifyContent: "center", position: 'absolute', right: 10, top: 10 }}>

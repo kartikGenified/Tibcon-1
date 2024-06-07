@@ -523,7 +523,7 @@ const Profile = ({ navigation }) => {
 
 
           </View>
-          {/* ozone specific changes */}
+          {/* Tibcon specific changes */}
          {userData?.user_type != "sales" && <View style={{ width: '100%', backgroundColor: "white", alignItems: "center", justifyContent: 'center' }}>
             <View style={{ height: 100, width: '90%', backgroundColor: "white", alignItems: "flex-start", justifyContent: 'center', flexDirection: 'row', marginTop: 20 }}>
 
