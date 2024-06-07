@@ -38,11 +38,12 @@ import { setPolicy,setTerms } from '../../../redux/slices/termsPolicySlice';
 import { useGetAppMenuDataMutation } from '../../apiServices/dashboard/AppUserDashboardMenuAPi.js';
 import { setDrawerData } from '../../../redux/slices/drawerDataSlice';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 
 // import * as Keychain from 'react-native-keychain';  
 
-const PasswordLogin = ({ navigation, route }) => {
+const PasswordLogin = ({ route }) => {
   const [username, setUsername] = useState("influencer_2")
   const [passwords, setPasswords] = useState("123456")
   const [parsedJsonValue,setParsedJsonValue] = useState();
@@ -50,6 +51,8 @@ const PasswordLogin = ({ navigation, route }) => {
   const [error, setError] = useState(false)
   const [message, setMessage] = useState("")
   const [isChecked, setIsChecked] = useState("")
+
+  const navigation = useNavigation()
 
   //modal
   const [openModalWithBorder, setModalWithBorder] = useState(false);
@@ -516,7 +519,7 @@ const PasswordLogin = ({ navigation, route }) => {
       <View style={{
         width: '100%', alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: ternaryThemeColor,
+        backgroundColor: 'white',
       }}>
         <View
           style={{
@@ -524,7 +527,7 @@ const PasswordLogin = ({ navigation, route }) => {
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: ternaryThemeColor,
+            backgroundColor: 'white',
             flexDirection: 'row',
 
           }}>
@@ -532,25 +535,25 @@ const PasswordLogin = ({ navigation, route }) => {
           <TouchableOpacity
             style={{ height: 50, alignItems: "center", justifyContent: 'center', position: "absolute", left: 10, top: 20 }}
             onPress={() => {
-              navigation.goBack();
+              navigation.goBack()
             }}>
             <Image
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}
+              style={{ height: 20, width: 20,marginTop:20, resizeMode: 'contain' }}
               source={require('../../../assets/images/blackBack.png')}></Image>
           </TouchableOpacity>
           <Image
             style={{
-              height: 50,
-              width: 100,
+              height: 100,
+              width: 200,
               resizeMode: 'contain',
-              top: 20,
+              // top: 20,
               position: "absolute",
-              left: 50,
+              left: 0,
 
 
 
             }}
-            source={require('../../../assets/images/TibconWhiteLogo.png')}></Image>
+            source={require('../../../assets/images/Logo.png')}></Image>
           {/* Tibcon change */}
          
 
@@ -592,7 +595,7 @@ const PasswordLogin = ({ navigation, route }) => {
             width: '90%'
           }}>
           <PoppinsText
-            style={{ color: 'white', fontSize: 28 }}
+            style={{ color: 'black', fontSize: 28 }}
             content={t("Login To Your Account")}></PoppinsText>
 
         </View>

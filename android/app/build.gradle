@@ -80,8 +80,8 @@ android {
         applicationId "com.Tibcon"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 70020
-        versionName "70020"
+        versionCode 2
+        versionName "2"
         missingDimensionStrategy 'react-native-camera', 'general'
         
     }

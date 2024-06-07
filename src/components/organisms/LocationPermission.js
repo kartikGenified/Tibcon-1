@@ -14,8 +14,8 @@ const LocationPermission = ({ onSuccess, onReject }) => {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
                 {
-                    title: 'OzoStars App Location Permission',
-                    message: 'OzoStars App needs access to your Location ',
+                    title: 'Tibcon App Location Permission',
+                    message: 'Tibcon App needs access to your Location ',
                     buttonNeutral: 'Ask Me Later',
                     buttonNegative: 'Cancel',
                     buttonPositive: 'OK',

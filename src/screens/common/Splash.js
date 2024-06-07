@@ -75,7 +75,7 @@ const Splash = ({ navigation }) => {
 
 
   }
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/ozoStars.gif')).uri;
+  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/Tibcon.gif')).uri;
   // generating functions and constants for API use cases---------------------
   const [
     getAppTheme,
@@ -394,7 +394,7 @@ const Splash = ({ navigation }) => {
     }
     if (Platform.OS == 'android') {
       LocationServicesDialogBox.checkLocationServicesIsEnabled({
-        message: "<h2 style='color: #0af13e'>Use Location ?</h2>Ozostars wants to change your device settings:<br/><br/>Enable location to use the application.<br/><br/><a href='#'>Learn more</a>",
+        message: "<h2 style='color: #0af13e'>Use Location ?</h2>Tibcon wants to change your device settings:<br/><br/>Enable location to use the application.<br/><br/><a href='#'>Learn more</a>",
         ok: "YES",
         cancel: "NO",
         enableHighAccuracy: true, // true => GPS AND NETWORK PROVIDER, false => GPS OR NETWORK PROVIDER
@@ -668,11 +668,11 @@ const Splash = ({ navigation }) => {
       setShowLoading(false)
       if (value === "Yes") 
       {   
-         minVersionSupport && locationStatusChecked  && navigation.navigate('SelectUser');
+       (! __DEV__ ) ? minVersionSupport && locationStatusChecked  && navigation.navigate('SelectUser') : navigation.navigate('SelectUser')
       }
       else 
       {
-         minVersionSupport && locationStatusChecked  && navigation.navigate('Introduction') 
+       (!__DEV__) ?  minVersionSupport && locationStatusChecked  && navigation.navigate('Introduction')  :  navigation.navigate('Introduction')
       }
       // console.log("isAlreadyIntroduced",isAlreadyIntroduced,gotLoginData)
 
@@ -792,9 +792,9 @@ const Splash = ({ navigation }) => {
   // console.log("internet connection status",connected)
   return (
     
-      <ImageBackground resizeMode='stretch' style={{  height: '100%', width: '100%', alignItems:'center',justifyContent:'center' }} source={require('../../../assets/images/splash2.png')}> 
-      <InternetModal visible={!connected} comp = {NoInternetComp} />
-      {isSlowInternet && <InternetModal visible={isSlowInternet} comp = {SlowInternetComp} /> }
+      <ImageBackground resizeMode='stretch' style={{  height: '100%', width: '100%', alignItems:'center',justifyContent:'center' }} source={require('../../../assets/images/splash3.png')}> 
+      {/* <InternetModal visible={!connected} comp = {NoInternetComp} /> */}
+      {/* {isSlowInternet && <InternetModal visible={isSlowInternet} comp = {SlowInternetComp} /> } */}
 
      
       {error &&  <ErrorModal

@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Tibcon Overseas";
+    return "Tibcon";
   }
   @Override
   protected void onCreate(Bundle savedInstanceState) {

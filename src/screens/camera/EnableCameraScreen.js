@@ -58,8 +58,8 @@ const EnableCameraScreen = ({ navigation, route }) => {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA,
           {
-            title: "OzoStars App Camera Permission",
-            message: "OzoStars App needs access to your camera",
+            title: "Tibcon App Camera Permission",
+            message: "Tibcon App needs access to your camera",
             buttonNegative: "Cancel",
             buttonPositive: "OK",
           }
@@ -68,7 +68,7 @@ const EnableCameraScreen = ({ navigation, route }) => {
           if (!alertShown) {
             Alert.alert(
               "Alert",
-              "To scan a QR code, the OZOSTAR app must have access permissions. Please grant access to the camera.",
+              "To scan a QR code, the Tibcon app must have access permissions. Please grant access to the camera.",
               [{ text: "OK", onPress: () => Linking.openSettings() }],
               { cancelable: false }
             );

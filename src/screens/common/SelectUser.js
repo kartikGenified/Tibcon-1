@@ -1,29 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Dimensions, Image, ScrollView,BackHandler} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {BaseUrl} from '../../utils/BaseUrl';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Dimensions, Image, ScrollView, BackHandler } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
-import {useGetAppUsersDataMutation} from '../../apiServices/appUsers/AppUsersApi';
+import { useGetAppUsersDataMutation } from '../../apiServices/appUsers/AppUsersApi';
 import SelectUserBox from '../../components/molecules/SelectUserBox';
 import { setAppUsers } from '../../../redux/slices/appUserSlice';
-import { slug } from '../../utils/Slug';
-import { setAppUserType, setAppUserName, setAppUserId, setUserData, setId} from '../../../redux/slices/appUserDataSlice';
+import { setAppUserType, setAppUserName, setAppUserId, setUserData, setId } from '../../../redux/slices/appUserDataSlice';
 import PoppinsTextMedium from '../../components/electrons/customFonts/PoppinsTextMedium';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ErrorModal from '../../components/modals/ErrorModal';
 import { t } from 'i18next';
 
-
-
-
-
-const SelectUser = ({navigation}) => {
-  const [listUsers, setListUsers] = useState();
-  const [showSplash, setShowSplash] = useState(true)
-  const [connected, setConnected] = useState(true)
-  
-
- 
+const SelectUser = ({ navigation }) => {
+  const [listUsers, setListUsers] = useState([]);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
 
   const [
     getUsers,
@@ -34,154 +26,98 @@ const SelectUser = ({navigation}) => {
       isError: getUsersDataIsError,
     },
   ] = useGetAppUsersDataMutation();
-  const dispatch = useDispatch()
-  
-  
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-    getData()
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true);
+    getData();
     getUsers();
-    return () => backHandler.remove()
+    return () => backHandler.remove();
   }, []);
+
   useEffect(() => {
     if (getUsersData) {
-      console.log("type of users",getUsersData?.body);
-      dispatch(setAppUsers(getUsersData?.body))
+      console.log("type of users", getUsersData?.body);
+      dispatch(setAppUsers(getUsersData?.body));
       setListUsers(getUsersData?.body);
-    } else if(getUsersError) {
-      setError(true)
-      setMessage("Error in getting profile data, kindly retry after sometime")
-      console.log("getUsersError",getUsersError);
+    } else if (getUsersError) {
+      setError(true);
+      setMessage("Error in getting profile data, kindly retry after sometime");
+      console.log("getUsersError", getUsersError);
     }
   }, [getUsersData, getUsersError]);
 
-  
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('loginData');
-      console.log("loginData",JSON.parse(jsonValue))
-      if(jsonValue!=null)
-      {
-      saveUserDetails(JSON.parse(jsonValue))
+      if (jsonValue != null) {
+        saveUserDetails(JSON.parse(jsonValue));
       }
-      
     } catch (e) {
-      console.log("Error is reading loginData",e)
+      console.log("Error is reading loginData", e);
     }
   };
+
   const saveUserDetails = (data) => {
-
     try {
-      console.log("Saving user details", data)
-      dispatch(setAppUserId(data?.user_type_id))
-      dispatch(setAppUserName(data?.name))
-      dispatch(setAppUserType(data?.user_type))
-      dispatch(setUserData(data))
-      dispatch(setId(data?.id))
-      handleNavigation()
+      dispatch(setAppUserId(data?.user_type_id));
+      dispatch(setAppUserName(data?.name));
+      dispatch(setAppUserType(data?.user_type));
+      dispatch(setUserData(data));
+      dispatch(setId(data?.id));
+      handleNavigation();
+    } catch (e) {
+      console.log("error", e);
     }
-    catch (e) {
-      console.log("error", e)
-    }
-    
-  }   
+  };
 
-  const handleNavigation=()=>{
-    
+  const handleNavigation = () => {
     setTimeout(() => {
-      setShowSplash(false)
-    navigation.navigate('Dashboard')
-
+      navigation.navigate('Dashboard');
     }, 5000);
-  }
-  const primaryThemeColor = useSelector(
-    state => state.apptheme.primaryThemeColor,
-  )
-    ? useSelector(state => state.apptheme.primaryThemeColor)
-    : '#FF9B00';
-  const secondaryThemeColor = useSelector(
-    state => state.apptheme.secondaryThemeColor,
-  )
-    ? useSelector(state => state.apptheme.secondaryThemeColor)
-    : '#FFB533';
-  const ternaryThemeColor = useSelector(
-    state => state.apptheme.ternaryThemeColor,
-  )
-    ? useSelector(state => state.apptheme.ternaryThemeColor)
-    : '#FFB533';
+  };
 
-  const icon = useSelector(state => state.apptheme.icon)
-    ? useSelector(state => state.apptheme.icon)
-    : require('../../../assets/images/demoIcon.png');
+  const primaryThemeColor = useSelector(state => state.apptheme.primaryThemeColor) || '#FF9B00';
+  const secondaryThemeColor = useSelector(state => state.apptheme.secondaryThemeColor) || '#FFB533';
+  const ternaryThemeColor = useSelector(state => state.apptheme.ternaryThemeColor) || '#FFB533';
 
-    const otpLogin = useSelector(state => state.apptheme.otpLogin)
-    // console.log(useSelector(state => state.apptheme.otpLogin))
-    const passwordLogin = useSelector(state => state.apptheme.passwordLogin)
-    // console.log(useSelector(state => state.apptheme.passwordLogin))
-    const manualApproval = useSelector(state => state.appusers.manualApproval)
-    const autoApproval = useSelector(state => state.appusers.autoApproval)
-    const registrationRequired = useSelector(state => state.appusers.registrationRequired)
-    console.log("registration required",registrationRequired)
+  const otpLogin = useSelector(state => state.apptheme.otpLogin);
+  const passwordLogin = useSelector(state => state.apptheme.passwordLogin);
+  const manualApproval = useSelector(state => state.appusers.manualApproval);
+  const autoApproval = useSelector(state => state.appusers.autoApproval);
+  const registrationRequired = useSelector(state => state.appusers.registrationRequired);
 
   const width = Dimensions.get('window').width;
-    
-  
 
   return (
-    <LinearGradient
-      colors={["white", "white"]}
-      style={styles.container}>
-         <ScrollView showsVerticalScrollIndicator={false} style={{}}>
-      <View
-        style={{
-          height: 140,
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        
+    <LinearGradient colors={["white", "white"]} style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
           <Image
-            style={{
-              height: 200,
-              width: 240,
-              resizeMode: 'contain',
-              top: 60,
-            }}
-            source={{uri: icon}}></Image>
-
-            <View style={{width:'80%',alignItems:"center",justifyContent:'center',borderColor:ternaryThemeColor,borderTopWidth:1,borderBottomWidth:1,height:60,marginTop:40}}>
-              {/* <PoppinsTextMedium style={{color:'#171717',fontSize:20,fontWeight:'700'}} ></PoppinsTextMedium> */}
-              <PoppinsTextMedium style={{ color: '#171717', fontSize: 20, fontWeight: '700' }} content={t('choose profile')} />
-
-            </View>
-        {/* </View> */}
-      </View>
-     
-       
-     
-      
-        <View style={styles.userListContainer}>
-          {listUsers &&
-            listUsers.map((item, index) => {
-              return (
-                <SelectUserBox
-                style={{}}
-                  navigation = {navigation}
-                  otpLogin={otpLogin}
-                  passwordLogin={passwordLogin}
-                  autoApproval={autoApproval}
-                  manualApproval={manualApproval}
-                  registrationRequired={registrationRequired}
-                  key={index}
-                  color={ternaryThemeColor}
-                  image={item.user_type_logo}
-                  content={item.user_type}
-                  id={item.user_type_id}></SelectUserBox>
-              );
-            })}
+            style={styles.logo}
+            source={require('../../../assets/images/Logo.png')}
+          />
+          <View style={[styles.headerTextContainer, { borderColor: ternaryThemeColor }]}>
+            <PoppinsTextMedium style={styles.headerText} content={t('choose profile')} />
+          </View>
         </View>
-        <PoppinsTextMedium style={{color:'black',fontSize:12,marginTop:20,marginBottom:10}} content="Designed and developed by Genefied"></PoppinsTextMedium>
+        <View style={styles.userListContainer}>
+          {listUsers.map((item, index) => (
+            <SelectUserBox
+              key={index}
+              navigation={navigation}
+              otpLogin={otpLogin}
+              passwordLogin={passwordLogin}
+              autoApproval={autoApproval}
+              manualApproval={manualApproval}
+              registrationRequired={registrationRequired}
+              color={ternaryThemeColor}
+              image={item.user_type_logo}
+              content={item.user_type}
+              id={item.user_type_id}
+            />
+          ))}
+        </View>
+        <PoppinsTextMedium style={styles.footerText} content="Designed and developed by Genefied" />
       </ScrollView>
     </LinearGradient>
   );
@@ -190,20 +126,35 @@ const SelectUser = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:'100%',
+    height: '100%',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  semicircle: {
-    backgroundColor: 'white',
-    position: 'absolute',
+  header: {
+    height: 140,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  banner: {
-    height: 184,
-    width: '90%',
-    borderRadius: 10,
+  logo: {
+    height: 200,
+    width: 240,
+    resizeMode: 'contain',
+    top: 60,
+  },
+  headerTextContainer: {
+    width: '80%',
+    alignItems: "center",
+    justifyContent: 'center',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    height: 60,
+    marginTop: 40,
+  },
+  headerText: {
+    color: '#171717',
+    fontSize: 20,
+    fontWeight: '700',
   },
   userListContainer: {
     width: '100%',
@@ -211,8 +162,13 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop:100,
-    
+    marginTop: 100,
+  },
+  footerText: {
+    color: 'black',
+    fontSize: 12,
+    marginTop: 20,
+    marginBottom: 10,
   },
 });
 

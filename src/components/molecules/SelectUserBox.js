@@ -59,16 +59,15 @@ const SelectUserBox = (props) => {
         }
         
     }
-
-    const handleNavigation=(needsApproval,registrationRequired)=>{
-        console.log("Needs Approval",needsApproval)
-        if(otpLogin.includes(props.content)
-        ){
-            props.navigation.navigate('OtpLogin',{needsApproval:needsApproval, userType:props.content, userId:props.id,registrationRequired:registrationRequired})
+    const handleNavigation = (needsApproval, registrationRequired) => {
+        console.log("Needs Approval", needsApproval)
+        if (otpLogin.includes(props.content)
+        ) {
+            props.navigation.navigate('OtpLogin', { needsApproval: needsApproval, userType: props.content, userId: props.id, registrationRequired: registrationRequired })
         }
-        else{
-            props.navigation.navigate('PasswordLogin',{needsApproval:needsApproval, userType:props.content, userId:props.id,registrationRequired:registrationRequired})
-        console.log("Password Login",props.content,props.id,registrationRequired,needsApproval)
+        else {
+            props.navigation.navigate('PasswordLogin', { needsApproval: needsApproval, userType: props.content, userId: props.id, registrationRequired: registrationRequired })
+            console.log("Password Login", props.content, props.id, registrationRequired, needsApproval)
         }
 
     }

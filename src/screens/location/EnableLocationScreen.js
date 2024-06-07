@@ -48,7 +48,7 @@ const [locationPermission, setLocationPermissionEnabled] = useState(false)
       );
     } else if (Platform.OS === 'android') {
       LocationServicesDialogBox.checkLocationServicesIsEnabled({
-        message: "<h2 style='color: #0af13e'>Use Location ?</h2>Ozostars wants to change your device settings:<br/><br/>Enable location to use the application.<br/><br/><a href='#'>Learn more</a>",
+        message: "<h2 style='color: #0af13e'>Use Location ?</h2>tibcon wants to change your device settings:<br/><br/>Enable location to use the application.<br/><br/><a href='#'>Learn more</a>",
         ok: "YES",
         cancel: "NO",
         enableHighAccuracy: true,
@@ -138,7 +138,7 @@ const [locationPermission, setLocationPermissionEnabled] = useState(false)
         if (error.code === 1) {
           Alert.alert(
             "Alert",
-            "To scan a QR code, the OZOSTAR app must have access permissions. Please grant access to the location.",
+            "To scan a QR code, the Tibcon app must have access permissions. Please grant access to the location.",
             [
               { text: "NO", onPress: () => { 
                 // props.locationStatus(true); 
