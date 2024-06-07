@@ -668,11 +668,11 @@ const Splash = ({ navigation }) => {
       setShowLoading(false)
       if (value === "Yes") 
       {   
-         minVersionSupport && locationStatusChecked  && navigation.navigate('SelectUser');
+       (! __DEV__ ) ? minVersionSupport && locationStatusChecked  && navigation.navigate('SelectUser') : navigation.navigate('SelectUser')
       }
       else 
       {
-         minVersionSupport && locationStatusChecked  && navigation.navigate('Introduction') 
+       (!__DEV__) ?  minVersionSupport && locationStatusChecked  && navigation.navigate('Introduction')  :  navigation.navigate('Introduction')
       }
       // console.log("isAlreadyIntroduced",isAlreadyIntroduced,gotLoginData)
 
@@ -792,9 +792,9 @@ const Splash = ({ navigation }) => {
   // console.log("internet connection status",connected)
   return (
     
-      <ImageBackground resizeMode='stretch' style={{  height: '100%', width: '100%', alignItems:'center',justifyContent:'center' }} source={require('../../../assets/images/splash2.png')}> 
-      <InternetModal visible={!connected} comp = {NoInternetComp} />
-      {isSlowInternet && <InternetModal visible={isSlowInternet} comp = {SlowInternetComp} /> }
+      <ImageBackground resizeMode='stretch' style={{  height: '100%', width: '100%', alignItems:'center',justifyContent:'center' }} source={require('../../../assets/images/splash3.png')}> 
+      {/* <InternetModal visible={!connected} comp = {NoInternetComp} /> */}
+      {/* {isSlowInternet && <InternetModal visible={isSlowInternet} comp = {SlowInternetComp} /> } */}
 
      
       {error &&  <ErrorModal

@@ -565,7 +565,7 @@ const VerifyOtp = ({ navigation, route }) => {
       <View style={{
         width: '100%', alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: ternaryThemeColor,
+        // backgroundColor: ternaryThemeColor,
       }}>
         <View
           style={{
@@ -573,7 +573,7 @@ const VerifyOtp = ({ navigation, route }) => {
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: ternaryThemeColor,
+            backgroundColor: 'white',
             flexDirection: 'row',
 
           }}>
@@ -584,22 +584,22 @@ const VerifyOtp = ({ navigation, route }) => {
               navigation.goBack();
             }}>
             <Image
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}
+              style={{ height: 20, width: 20,marginTop:20, resizeMode: 'contain' }}
               source={require('../../../assets/images/blackBack.png')}></Image>
           </TouchableOpacity>
           <Image
             style={{
-              height: 50,
+              height: 100,
               width: 100,
               resizeMode: 'contain',
-              top: 20,
+              // top: 20,
               position: "absolute",
               left: 50,
               
 
 
             }}
-            source={require('../../../assets/images/TibconWhiteLogo.png')}></Image>
+            source={require('../../../assets/images/Logo.png')}></Image>
         </View>
         <View
           style={{
@@ -609,10 +609,10 @@ const VerifyOtp = ({ navigation, route }) => {
             width: '90%'
           }}>
           <PoppinsText
-            style={{ color: 'white', fontSize: 28 }}
+            style={{ color: 'black', fontSize: 28 }}
             content={t("Enter the OTP sent to")}></PoppinsText>
           <PoppinsText
-            style={{ color: 'white', fontSize: 28 }}
+            style={{ color: 'black', fontSize: 28 }}
             content={navigationParams.mobile}></PoppinsText>
 
         </View>

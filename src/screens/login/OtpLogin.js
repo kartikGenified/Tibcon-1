@@ -27,8 +27,8 @@ import PoppinsTextLeftMedium from '../../components/electrons/customFonts/Poppin
 import Checkbox from '../../components/atoms/checkbox/Checkbox';
 import { useFetchLegalsMutation } from '../../apiServices/fetchLegal/FetchLegalApi';
 import * as Keychain from 'react-native-keychain';
-import FastImage from 'react-native-fast-image';
-import { useTranslation } from 'react-i18next';
+
+
 
 const OtpLogin = ({ navigation, route }) => {
   const [mobile, setMobile] = useState("")
@@ -37,9 +37,7 @@ const OtpLogin = ({ navigation, route }) => {
   const [message, setMessage] = useState()
   const [error, setError] = useState(false)
   const [isChecked, setIsChecked] = useState(false);
-  const [hideButton, setHideButton] = useState(false)
 
-  const {t} = useTranslation()
   // fetching theme for the screen-----------------------
 
   const primaryThemeColor = useSelector(
@@ -96,25 +94,25 @@ const OtpLogin = ({ navigation, route }) => {
     }
   ] = useGetNameMutation()
 
-  const needsApproval = route?.params?.needsApproval;
-  const user_type_id = route?.params?.userId;
-  const user_type = route?.params?.userType;
-  const registrationRequired = route?.params?.registrationRequired 
-  console.log("registrationRequiredotpLogin", registrationRequired)
+  const needsApproval = route.params.needsApproval;
+  const user_type_id = route.params.userId;
+  const user_type = route.params.userType;
+  const registrationRequired = route.params.registrationRequired
+  // console.log("registrationRequired", registrationRequired, user_type)
   const width = Dimensions.get('window').width;
   const navigationParams = { "needsApproval": needsApproval, "user_type_id": user_type_id, "user_type": user_type, "mobile": mobile, "name": name }
-  console.log("navigationParams",navigationParams)
-  const gifUri = Image.resolveAssetSource(
-    require("../../../assets/gif/loader.gif")
-  ).uri;
+
   useEffect(() => {
     fetchTerms();
-    setHideButton(false)
-  }, [focused])
+  }, [])
+
+  useEffect(()=>{
+    setMobile("")
+  },[focused])
 
   useEffect(() => {
     if (getTermsData) {
-      console.log("getTermsData", getTermsData?.body?.data?.[0]?.files[0]);
+      console.log("getTermsData", getTermsData.body.data?.[0]?.files[0]);
     }
     else if (getTermsError) {
       console.log("gettermserror", getTermsError)
@@ -125,24 +123,18 @@ const OtpLogin = ({ navigation, route }) => {
 
   useEffect(() => {
     if (sendOtpData) {
-      console.log("sendOtpData", sendOtpData)
-      if (sendOtpData?.success === true && mobile.length === 10) {
-        if(Object.keys(getNameData.body).length!=0)
-        {
+      console.log("data", sendOtpData)
+      if (sendOtpData.success === true && mobile.length === 10) {
         navigation.navigate('VerifyOtp', { navigationParams })
-
-        }
       }
       else {
         console.log("Trying to open error modal")
       }
-      setHideButton(false)
     }
     else if (sendOtpError) {
       console.log("err", sendOtpError)
       setError(true)
-      setHideButton(false)
-      setMessage(sendOtpError?.data?.message)
+      setMessage(sendOtpError.data.message)
     }
 
 
@@ -152,8 +144,8 @@ const OtpLogin = ({ navigation, route }) => {
   useEffect(() => {
     if (getNameData) {
       console.log("getNameData", getNameData)
-      if (getNameData?.success) {
-        setName(getNameData?.body.name)
+      if (getNameData.success) {
+        setName(getNameData.body.name)
       }
     }
     else if (getNameError) {
@@ -165,26 +157,21 @@ const OtpLogin = ({ navigation, route }) => {
     console.log("Name in use effect--------->>>>>>>>>>>>>>>",name)
   }, [name])
 
+  useEffect(()=>{
+    setName("")
+    setMobile("")
+  },[focused])
+
   const getMobile = data => {
     // console.log(data)
-    const reg = '^([0|+[0-9]{1,5})?([6-9][0-9]{9})$';
-    const mobReg = new RegExp(reg)
-    
-      setMobile(data)
-      if (data !== undefined) {
-        if (data.length === 10) {
-          if(mobReg.test(data))
-        {
-          getNameFunc({ mobile: data })
-          Keyboard.dismiss();
-        }
-        else{
-          setError(true)
-          setMessage("Please enter a valid mobile number")
-        }
+    setMobile(data)
+    if (data !== undefined) {
+      if (data.length === 10) {
+        getNameFunc({ mobile: data })
+        Keyboard.dismiss();
       }
     }
-    
+
     
 
   };
@@ -219,33 +206,27 @@ const OtpLogin = ({ navigation, route }) => {
 
   const navigateToOtp = () => {
     sendOtpFunc({ mobile, name, user_type, user_type_id })
-    setHideButton(true)
     // navigation.navigate('VerifyOtp',{navigationParams})
   }
   const handleButtonPress = () => {
     // console.log("first",getNameData.message)
     // console.log("mobile",mobile,name.length,name,isChecked,getNameData)
     if (isChecked) {
-      console.log("handleButtonPress",getNameData,isChecked,name,mobile)
       if (getNameData && isChecked && name !== undefined && mobile !== undefined && name != "" && mobile.length !== 0 && name.length !== 0) {
         // console.log("mobile",mobile,name.length)
         if (getNameData.message === "Not Found") {
           console.log("registrationRequired", registrationRequired)
           if (mobile?.length == 10) {
-            if(registrationRequired){
-              setMobile('')
-              setName('')
-              navigation.navigate('BasicInfo', { needsApproval: needsApproval, userType: user_type, userId: user_type_id, name: name, mobile: mobile, navigatingFrom: "OtpLogin",registrationRequired:registrationRequired })
-            }
-            else{
-              navigateToOtp()
-            }
-            
+            // registrationRequired ? navigation.navigate('BasicInfo', { needsApproval: needsApproval, userType: user_type, userId: user_type_id, name: name, mobile: mobile, navigatingFrom: "OtpLogin" }) : navigateToOtp()
+            setError(true)
+            setMessage("Please register before login")
           }
-          else {
+          else{
             setError(true)
             setMessage("Please enter your 10 digit mobile number")
           }
+      
+          
           // setName('')
           // setMobile('')
         }
@@ -288,7 +269,7 @@ const OtpLogin = ({ navigation, route }) => {
       <View style={{
         width: '100%', alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: ternaryThemeColor,
+        backgroundColor: "white",
       }}>
         <View
           style={{
@@ -296,8 +277,10 @@ const OtpLogin = ({ navigation, route }) => {
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: ternaryThemeColor,
+            backgroundColor: "ternaryThemeColor",
             flexDirection: 'row',
+           
+
           }}>
 
           <TouchableOpacity
@@ -306,22 +289,35 @@ const OtpLogin = ({ navigation, route }) => {
               navigation.goBack();
             }}>
             <Image
-              style={{ height: 20, width: 20, resizeMode: 'contain' }}
+              style={{ height: 30, width: 25, resizeMode: 'contain' }}
               source={require('../../../assets/images/blackBack.png')}></Image>
           </TouchableOpacity>
           <Image
             style={{
-              height: 50,
-              width: 100,
+              height: 100,
+              width: 150,
               resizeMode: 'contain',
-              top: 20,
+              top: 0,
               position: "absolute",
-              left: 50,
-
-
-
+              left: 20,
             }}
-            source={require('../../../assets/images/TibconWhiteLogo.png')}></Image>
+            source={require('../../../assets/images/Logo.png')}></Image>
+            {/* <PoppinsTextMedium style={{fontSize:14,color:'white'}} content ="Don't have an account ?"></PoppinsTextMedium> */}
+            <View style={{position:"absolute",right:20,top:10}}>
+              {registrationRequired &&
+                 <ButtonNavigate
+                 handleOperation={()=>{navigation.navigate("BasicInfo",{needsApproval: needsApproval, userType: user_type, userId: user_type_id, name: name, mobile: mobile, navigatingFrom: "OtpLogin" })}}
+                 backgroundColor="#353535"
+                 style={{ color: 'white', fontSize: 16 }}
+                 content="Register"
+                 navigateTo="BasicInfo"
+                 properties = {{needsApproval: needsApproval, userType: user_type, userId: user_type_id, name: name, mobile: mobile, navigatingFrom: "OtpLogin" }}
+               >
+               </ButtonNavigate>
+              }
+         
+            </View>
+            
         </View>
         <View
           style={{
@@ -331,10 +327,13 @@ const OtpLogin = ({ navigation, route }) => {
             width: '90%'
           }}>
           <PoppinsText
-            style={{ color: 'white', fontSize: 28 }}
-            content={t("tell us number")}></PoppinsText>
+            style={{ color: 'black', fontSize: 28 }}
+            content="Tell us your mobile number"></PoppinsText>
 
         </View>
+        
+            
+          
       </View>
 
 
@@ -349,22 +348,26 @@ const OtpLogin = ({ navigation, route }) => {
               justifyContent: 'center',
               marginTop: 40,
             }}>
-            <TextInputRectangularWithPlaceholder
-              placeHolder={t("mobile no")}
+                <TextInputRectangularWithPlaceholder
+              placeHolder="Mobile No"
               handleData={getMobile}
               maxLength={10}
-              value = {mobile}
               KeyboardType="numeric"
+              specialCharValidation={true}
+              validationType = "numeric"
             ></TextInputRectangularWithPlaceholder>
 
             <TextInputRectangularWithPlaceholder
-              placeHolder={t("name")}
+              placeHolder="Name"
               handleData={getName}
               value={name}
               specialCharValidation={true}
             ></TextInputRectangularWithPlaceholder>
           </View>
+          
         </KeyboardAvoidingView>
+
+        
 
         <View
           style={{
@@ -376,40 +379,30 @@ const OtpLogin = ({ navigation, route }) => {
           <View style={{ flexDirection: 'row', marginHorizontal: 24, }}>
             <Checkbox CheckBoxData={getCheckBoxData} />
             <TouchableOpacity onPress={() => {
-              navigation.navigate('PdfComponent', { pdf: getTermsData?.body?.data?.[0]?.files[0] })
+              navigation.navigate('PdfComponent', { pdf: getTermsData.body.data?.[0]?.files[0] })
             }}>
-              <PoppinsTextLeftMedium content={t("terms and condition")} style={{ color: '#808080', marginHorizontal: 30, marginBottom: 20, fontSize: 15, marginLeft: 8, marginTop: 16 }}></PoppinsTextLeftMedium>
+              <PoppinsTextLeftMedium content={"I agree to the Terms & Conditions"} style={{ color: '#808080', marginHorizontal: 30, marginBottom: 20, fontSize: 15, marginLeft: 8, marginTop: 16 }}></PoppinsTextLeftMedium>
             </TouchableOpacity>
           </View>
 
 
-        
-            <ButtonNavigateArrow
+          {<ButtonNavigateArrow
             success={success}
             handleOperation={handleButtonPress}
             backgroundColor={buttonThemeColor}
             style={{ color: 'white', fontSize: 16 }}
-            isLoading={sendOtpIsLoading}
-            content={t("login")}
+            content="Login"
             navigateTo="VerifyOtp"
             navigationParams={navigationParams}
             mobileLength={mobile}
-            isChecked={isChecked && mobile?.length == 10 && name != "" && !hideButton}
-          ></ButtonNavigateArrow>
+            isChecked={isChecked && mobile?.length == 10 && name != ""}
+          ></ButtonNavigateArrow>}
+  
           
 
-      {
-        sendOtpIsLoading && <FastImage
-          style={{ width: 100, height: 100, alignSelf: 'center', marginTop: 10 }}
-          source={{
-            uri: gifUri, // Update the path to your GIF
-            priority: FastImage.priority.normal,
-          }}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      }
+
         </View>
-        {error && <ErrorModal modalClose={modalClose} message={message} openModal={error}></ErrorModal>}
+        {error && <ErrorModal modalClose={modalClose} title="" message={message} openModal={error}></ErrorModal>}
 
         {/* {registrationRequired && <View style={{width:"100%",alignItems:'center',justifyContent:"center",marginTop:20}}>
         <PoppinsTextMedium style={{fontSize:18}} content ="Don't have an account ?"></PoppinsTextMedium>
