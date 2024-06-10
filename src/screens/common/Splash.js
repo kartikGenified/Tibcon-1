@@ -75,7 +75,7 @@ const Splash = ({ navigation }) => {
 
 
   }
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/Tibcon.gif')).uri;
+  // const gifUri = Image.resolveAssetSource(require('../../../assets/gif/Tibcon.gif')).uri;
   // generating functions and constants for API use cases---------------------
   const [
     getAppTheme,
