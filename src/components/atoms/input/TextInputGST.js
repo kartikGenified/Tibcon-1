@@ -19,7 +19,7 @@ const TextInputGST = (props) => {
         isError:verifyGstIsError
       }]= useVerifyGstMutation()
 
-    console.log("Aadhar TextInput")
+    // console.log("Aadhar TextInput")
     Keyboard.addListener('keyboardDidShow',()=>{
       setKeyboardShow(true)
   })
@@ -27,7 +27,7 @@ Keyboard.addListener('keyboardDidHide',()=>{
       setKeyboardShow(false)
   })
     useEffect(()=>{
-        if(value.length===15)
+        if(value?.length===15)
         {
           const data = {
             "gstin":value,

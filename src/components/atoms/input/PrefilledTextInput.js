@@ -50,7 +50,7 @@ const PrefilledTextInput = (props) => {
         {
          props.handleData(tempJsonData,props.placeHolder)
         }
-        console.log("keyboard visible",keyboardShow,placeHolder)
+        // console.log("keyboard visible",keyboardShow,placeHolder)
     },[keyboardShow])
 
     const handleInput=(text)=>{

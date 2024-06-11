@@ -320,6 +320,7 @@ console.log("navigation params from basic info",navigationParams)
     if (getFormData) {
       if (getFormData.message !== "Not Found") {
         console.log("Form Fields", JSON.stringify(getFormData))
+
         const values = Object.values(getFormData.body.template)
         setRegistrationForm(values)
       }
@@ -531,6 +532,7 @@ console.log("navigation params from basic info",navigationParams)
       setIsCorrectPincode(false)
     }
     else{
+      setIsCorrectPincode(true)
       const locationJson = {
         "postcode":pin,
         "district":json.PostOffice[0].District,
@@ -587,7 +589,7 @@ console.log("navigation params from basic info",navigationParams)
   console.log("panVerifiedhideButton",hideButton)
 
   const addharVerified = (bool)=>{
-    console.log("aadhar text input status", bool)
+    // console.log("aadhar text input status", bool)
     if(!bool)
     {
       setAadhaarVerified(false)
@@ -598,100 +600,193 @@ console.log("navigation params from basic info",navigationParams)
     }
   }
 
-  const handleRegistrationFormSubmission = () => {
-    const inputFormData = {};
-    let isFormValid = true; 
-    let missingParam = "";
+//   const handleRegistrationFormSubmission = () => {
+//     console.log("handleRegistrationFormSubmission", registrationForm)
+//     const inputFormData = {};
+//     let isFormValid = true; 
+//     let missingParam = "";
 
-    inputFormData["user_type"] = userType;
-    inputFormData["user_type_id"] = userTypeId;
-    inputFormData["is_approved_needed"] = isManuallyApproved;
-    inputFormData["name"] = name;
-    inputFormData["mobile"] = mobile;
+//     inputFormData["user_type"] = userType;
+//     inputFormData["user_type_id"] = userTypeId;
+//     inputFormData["is_approved_needed"] = isManuallyApproved;
+//     inputFormData["name"] = name;
+//     inputFormData["mobile"] = mobile;
 
-    for (var i = 0; i < responseArray.length; i++) {
-        inputFormData[responseArray[i].name] = responseArray[i].value;
+//     for (var i = 0; i < responseArray.length; i++) {
+//         inputFormData[responseArray[i].name] = responseArray[i].value;
 
-        if (responseArray[i].required && !responseArray[i].value) {
-            isFormValid = false;
-            missingParam = responseArray[i].label;
-            break;
-        }
+//         if (responseArray[i].required && !responseArray[i].value) {
+//           console.log("missing params",responseArray[i].name)
+//             isFormValid = false;
+//             missingParam = responseArray[i].label;
+//             break;
+//         }
 
-        if (responseArray[i].required && responseArray[i].name === "pincode" && responseArray[i].value.length !== 6) {
-            isFormValid = false;
-            missingParam = "Pincode must be exactly 6 digits";
-            break;
-        }
-    }
+//         if (responseArray[i].required && responseArray[i].name === "pincode" && responseArray[i].value.length !== 6) {
+//             isFormValid = false;
+//             missingParam = "Pincode must be exactly 6 digits";
+//             break;
+//         }
+//     }
 
-    console.log("missing params", missingParam);
+//     console.log("missing params", missingParam);
 
-    const body = inputFormData;
-    console.log("registration output", body);
+//     const body = inputFormData;
+//     console.log("registration output", body);
 
-    if (otpVerified) {
-        const keys = Object.keys(body);
-        const values = Object.values(body);
-        if(keys.includes('pincode'))
-        {
-          if(!isCorrectPincode)
-          {
-            setError(true);
-            setMessage("Pincode must be verified first");
-          }
-        }
-        if (keys.includes('email')) {
-            const index = keys.indexOf('email');
-            if (isValidEmail(values[index])) {
-                if (isFormValid) {
-                  if(keys.includes('pincode'))
-                  {
-                    if(!isCorrectPincode)
-                    {
-                      setError(true);
-                      setMessage("Pincode must be verified first");
-                    }
-                  }
-                  else{
-                    registerUserFunc(body);
-                    setHideButton(true);
-                  }
+//     if (otpVerified) {
+//         const keys = Object.keys(body);
+//         const values = Object.values(body);
+//         if(keys.includes('pincode'))
+//         {
+//           if(!isCorrectPincode)
+//           {
+//             setError(true);
+//             setMessage("Pincode must be verified first");
+//           }
+//         }
+//         if (keys.includes('email')) {
+//             const index = keys.indexOf('email');
+//             if (isValidEmail(values[index])) {
+//                 if (isFormValid) {
+//                   if(keys.includes('pincode'))
+//                   {
+//                     if(!isCorrectPincode)
+//                     {
+//                       setError(true);
+//                       setMessage("Pincode must be verified first");
+//                     }
+//                     else{
+//                       registerUserFunc(body);
+//                       setHideButton(true);
+//                     }
+//                   }
+                  
                     
-                } else {
-                    setError(true);
-                    setMessage(missingParam);
-                }
-            } else {
-                setError(true);
-                setMessage("Email isn't verified");
-            }
-        } else {
-            if (isFormValid) {
-              if(keys.includes('pincode'))
-              {
-                if(!isCorrectPincode)
-                {
+//                 } else {
+//                     setError(true);
+//                     setMessage(missingParam);
+//                 }
+//             } else {
+//                 setError(true);
+//                 setMessage("Email isn't verified");
+//             }
+//         } else {
+//             if (isFormValid) {
+//               if(keys.includes('pincode'))
+//               {
+//                 if(!isCorrectPincode)
+//                 {
+//                   setError(true);
+//                   setMessage("Pincode must be verified first");
+//                 }
+//                 else{
+//                   registerUserFunc(body);
+  
+//                 }
+//               }
+              
+//             } else {
+//                 setError(true);
+//                 setMessage(missingParam);
+//             }
+//         }
+//     } else {
+//         setError(true);
+//         setMessage(t("Otp isn't verified yet"));
+//     }
+
+//     console.log("responseArraybody", body);
+// };
+
+const handleRegistrationFormSubmission = () => {
+  console.log("handleRegistrationFormSubmission", responseArray);
+  const inputFormData = {};
+  let isFormValid = true; 
+  let missingParam = "";
+
+  inputFormData["user_type"] = userType;
+  inputFormData["user_type_id"] = userTypeId;
+  inputFormData["is_approved_needed"] = isManuallyApproved;
+  inputFormData["name"] = name;
+  inputFormData["mobile"] = mobile;
+
+  // Create a map for quick lookup of responseArray fields
+  const responseMap = new Map();
+  for (let i = 0; i < responseArray.length; i++) {
+      responseMap.set(responseArray[i].name, responseArray[i].value);
+  }
+console.log("responseMap",responseMap)
+  // Check for required fields and missing values
+  for (let i = 0; i < registrationForm.length; i++) {
+      const field = registrationForm[i];
+      console.log("Field", field)
+      if (field.required) {
+          const value = responseMap.get(field.name);
+          console.log("didnt get value for",value,field.name)
+          if (!value) {
+              isFormValid = false;
+              missingParam = field.label;
+              break;
+          }
+          if (field.name === "pincode" && value.length !== 6) {
+              isFormValid = false;
+              missingParam = "Pincode must be exactly 6 digits";
+              break;
+          }
+      }
+  }
+
+  console.log("missing params", missingParam);
+
+  // Populate inputFormData with responseArray values
+  for (let i = 0; i < responseArray.length; i++) {
+      inputFormData[responseArray[i].name] = responseArray[i].value;
+  }
+
+  const body = inputFormData;
+  console.log("registration output", body);
+
+  if (otpVerified) {
+      const keys = Object.keys(body);
+      const values = Object.values(body);
+
+      if (keys.includes('pincode') && !isCorrectPincode) {
+          setError(true);
+          setMessage("Pincode must be verified first");
+          return;
+      }
+
+      if (keys.includes('email')) {
+          const index = keys.indexOf('email');
+          if (isValidEmail(values[index])) {
+              if (isFormValid) {
+                  registerUserFunc(body);
+                  setHideButton(true);
+              } else {
                   setError(true);
-                  setMessage("Pincode must be verified first");
-                }
+                  setMessage(missingParam);
               }
-              else{
-                registerUserFunc(body);
+          } else {
+              setError(true);
+              setMessage("Email isn't verified");
+          }
+      } else {
+          if (isFormValid) {
+              registerUserFunc(body);
+          } else {
+              setError(true);
+              setMessage(missingParam);
+          }
+      }
+  } else {
+      setError(true);
+      setMessage(t("Otp isn't verified yet"));
+  }
 
-              }
-            } else {
-                setError(true);
-                setMessage(missingParam);
-            }
-        }
-    } else {
-        setError(true);
-        setMessage(t("Otp isn't verified yet"));
-    }
-
-    console.log("responseArraybody", body);
+  console.log("responseArraybody", body);
 };
+
 
 
   return (
@@ -752,7 +847,8 @@ console.log("navigation params from basic info",navigationParams)
             left: 10
           }}
           onPress={() => {
-            navigation.navigate('OtpLogin',navigationParams);
+            // navigation.navigate('OtpLogin',navigationParams);
+            navigation.pop(1)
           }}>
           <Image
             style={{
@@ -800,7 +896,7 @@ console.log("navigation params from basic info",navigationParams)
                             value={userMobile}
                             displayText ={item.name}
                             label={item.label}
-                            isEditable={false}
+                            // isEditable={false}
                           >
                             {' '}
                           </TextInputNumericRectangle>}
@@ -889,7 +985,7 @@ console.log("navigation params from basic info",navigationParams)
                       displayText = {t(item.name.toLowerCase().trim())}
                       value={userName}
                       label={item.label}
-                      isEditable={false}
+                      // isEditable={false}
                  
                     ></PrefilledTextInput>
                   )

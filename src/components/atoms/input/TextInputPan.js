@@ -31,7 +31,7 @@ const TextInputPan = (props) => {
       displayText = "Pan"
   }
 
-  console.log("Aadhar TextInput")
+  // console.log("Aadhar TextInput")
   Keyboard.addListener('keyboardDidShow', () => {
     setKeyboardShow(true)
   })
