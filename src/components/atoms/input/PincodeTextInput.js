@@ -12,7 +12,7 @@ const PincodeTextInput = (props) => {
     if(displayText == "pincode" || displayText == "Pincode"){
         displayText = "Pincode"
     }
-    console.log("pinnn", displayText)
+    // console.log("pinnn", displayText)
    
     const required = props.required ===undefined ? props.jsonData.required : props.required
     const {t} = useTranslation()
@@ -37,12 +37,12 @@ const PincodeTextInput = (props) => {
 
     const handleInput=(text)=>{
         setValue(text)
-        console.log(maxLength,text)
+        // console.log(maxLength,text)
         if(text.length===6 )
         {
         props.handleFetchPincode(text)
         let tempJsonData ={...props.jsonData,"value":text}
-        console.log(tempJsonData)
+        // console.log(tempJsonData)
         if(shouldReturnValue)
         props.handleData(value, placeHolder)
         else
@@ -55,7 +55,7 @@ const PincodeTextInput = (props) => {
     
     const handleInputEnd=()=>{
         let tempJsonData ={...props.jsonData,"value":value}
-        console.log(tempJsonData)
+        // console.log(tempJsonData)
         if(shouldReturnValue)
         props.handleData(value, placeHolder)
         else

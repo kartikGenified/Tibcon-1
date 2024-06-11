@@ -53,6 +53,7 @@ const Splash = ({ navigation }) => {
   const [isSlowInternet, setIsSlowInternet] = useState(false)
   const [locationStatusChecked, setLocationCheckVisited] = useState(false)
   const [locationBoxEnabled, setLocationBoxEnabled] = useState(false)
+  const[userList,setUserList] = useState();
   const [fetchLocation, setfetchLocation] = useState(false)
   const [showLoading, setShowLoading] = useState(true)
   const [message, setMessage] = useState();
@@ -62,6 +63,8 @@ const Splash = ({ navigation }) => {
   const [dashboardDataLoaded, setDashboardDataLoaded] = useState(false)
   const [error, setError] = useState(false);
   const [checkedForInAppUpdate, setCheckedForInAppUpdate] = useState(false)
+  const registrationRequired = useSelector(state => state.appusers.registrationRequired)
+  const manualApproval = useSelector(state => state.appusers.manualApproval)
   // const [isAlreadyIntroduced, setIsAlreadyIntroduced] = useState(null);
   // const [gotLoginData, setGotLoginData] = useState()
   const isConnected = useSelector(state => state.internet.isConnected);
@@ -623,6 +626,7 @@ const Splash = ({ navigation }) => {
   useEffect(() => {
     if (getUsersData) {
       // console.log("getUsersData", getUsersData?.body);
+      setUserList(getUsersData?.body)
       const appUsers = getUsersData?.body.map((item, index) => {
         return item.name
       })
@@ -668,7 +672,8 @@ const Splash = ({ navigation }) => {
       setShowLoading(false)
       if (value === "Yes") 
       {   
-       (! __DEV__ ) ? minVersionSupport && locationStatusChecked  && navigation.navigate('SelectUser') : navigation.navigate('SelectUser')
+       __DEV__ && setLocationCheckVisited(true)
+       minVersionSupport   && locationStatusChecked && navigation.navigate('OtpLogin',{ needsApproval: manualApproval.includes(userList?.[0].user_type),userType:userList?.[0]?.user_type,userId:userList?.[0]?.user_type_id, registrationRequired:registrationRequired}) 
       }
       else 
       {
