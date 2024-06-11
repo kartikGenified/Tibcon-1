@@ -21,7 +21,7 @@ const EmailTextInput = (props) => {
 
   Keyboard.addListener("keyboardDidShow", () => {
   
-    console.log("Keyboard Visible")
+    // console.log("Keyboard Visible")
 
   });
   Keyboard.addListener("keyboardDidHide", () => {
