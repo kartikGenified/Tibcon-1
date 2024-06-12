@@ -100,18 +100,18 @@ const BasicInfo = ({ navigation, route }) => {
   const needsApproval = route.params.needsApproval
   const navigatingFrom = route.params.navigatingFrom
   const registrationRequired = route.params.registrationRequired
-  console.log("registration required basic info", registrationRequired)
+  // console.log("registration required basic info", registrationRequired)
   // const navigationParams = { "needsApproval": needsApproval, "userId": userTypeId, "user_type": userType, "mobile": mobile, "name": name, "registrationRequired":registrationRequired}
   const navigationParams = { "needsApproval": needsApproval, "userId": userTypeId, "userType": userType, "registrationRequired":registrationRequired}
-console.log("navigation params from basic info",navigationParams)
+// console.log("navigation params from basic info",navigationParams)
   const name = route.params?.name
   const mobile = route.params?.mobile
-  console.log("appUsers", userType, userTypeId, isManuallyApproved, name, mobile)
+  // console.log("appUsers", userType, userTypeId, isManuallyApproved, name, mobile)
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
   const {t} = useTranslation()
   const gifUri = Image.resolveAssetSource(
-    require("../../../assets/gif/loader.gif")
+    require("../../../assets/gif/loader2.gif")
   ).uri;
 
   let timeoutId;
@@ -179,7 +179,7 @@ console.log("navigation params from basic info",navigationParams)
   }, [route.params.name])
 
   useEffect(() => {
-    console.log("mobile number from use effect", route.params.mobile, navigatingFrom)
+    // console.log("mobile number from use effect", route.params.mobile, navigatingFrom)
     setUserMobile(route.params.mobile)
 
   }, [route.params.mobile])
@@ -205,12 +205,12 @@ console.log("navigation params from basic info",navigationParams)
     if (verifyOtpData?.success) {
       setOtpVerified(true)
       setOtpModal(true)
-      console.log("verifyOtp", verifyOtpData)
+      // console.log("verifyOtp", verifyOtpData)
       setMessage("OTP Verified")
 
     }
     else if (verifyOtpError) {
-      console.log("verifyOtpError", verifyOtpError)
+      // console.log("verifyOtpError", verifyOtpError)
       setError(true)
       setMessage("Please Enter Correct OTP")
     }
@@ -220,11 +220,11 @@ console.log("navigation params from basic info",navigationParams)
     let lat = ''
     let lon = ''
     Geolocation.getCurrentPosition((res) => {
-      console.log("res", res)
+      // console.log("res", res)
       lat = res.coords.latitude
       lon = res.coords.longitude
       // getLocation(JSON.stringify(lat),JSON.stringify(lon))
-      console.log("latlong", lat, lon)
+      // console.log("latlong", lat, lon)
       var url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${res.coords.latitude},${res.coords.longitude}
         &location_type=ROOFTOP&result_type=street_address&key=${GoogleMapsKey}`
 
@@ -242,7 +242,7 @@ console.log("navigation params from basic info",navigationParams)
         }
 
         const addressComponent = json.results[0].address_components
-        console.log("addressComponent", addressComponent)
+        // console.log("addressComponent", addressComponent)
         for (let i = 0; i <= addressComponent.length; i++) {
           if (i === addressComponent.length) {
             dispatch(setLocation(locationJson))
@@ -250,28 +250,28 @@ console.log("navigation params from basic info",navigationParams)
           }
           else {
             if (addressComponent[i].types.includes("postal_code")) {
-              console.log("inside if")
+              // console.log("inside if")
 
               console.log(addressComponent[i].long_name)
               locationJson["postcode"] = addressComponent[i].long_name
             }
             else if (addressComponent[i].types.includes("country")) {
-              console.log(addressComponent[i].long_name)
+              // console.log(addressComponent[i].long_name)
 
               locationJson["country"] = addressComponent[i].long_name
             }
             else if (addressComponent[i].types.includes("administrative_area_level_1")) {
-              console.log(addressComponent[i].long_name)
+              // console.log(addressComponent[i].long_name)
 
               locationJson["state"] = addressComponent[i].long_name
             }
             else if (addressComponent[i].types.includes("administrative_area_level_3")) {
-              console.log(addressComponent[i].long_name)
+              // console.log(addressComponent[i].long_name)
 
               locationJson["district"] = addressComponent[i].long_name
             }
             else if (addressComponent[i].types.includes("locality")) {
-              console.log(addressComponent[i].long_name)
+              // console.log(addressComponent[i].long_name)
 
               locationJson["city"] = addressComponent[i].long_name
             }
@@ -280,7 +280,7 @@ console.log("navigation params from basic info",navigationParams)
         }
 
 
-        console.log("formattedAddressArray", locationJson)
+        // console.log("formattedAddressArray", locationJson)
 
       })
     })
@@ -288,7 +288,7 @@ console.log("navigation params from basic info",navigationParams)
   }, [])
   useEffect(() => {
     if (getLocationFormPincodeData) {
-      console.log("getLocationFormPincodeData", getLocationFormPincodeData)
+      // console.log("getLocationFormPincodeData", getLocationFormPincodeData)
       if (getLocationFormPincodeData.success) {
         const address = getLocationFormPincodeData.body[0].office + ", " + getLocationFormPincodeData.body[0].district + ", " + getLocationFormPincodeData.body[0].state + ", " + getLocationFormPincodeData.body[0].pincode
         let locationJson = {
@@ -304,12 +304,12 @@ console.log("navigation params from basic info",navigationParams)
 
 
         }
-        console.log("getLocationFormPincodeDataLocationJson",locationJson)
+        // console.log("getLocationFormPincodeDataLocationJson",locationJson)
         setLocation(locationJson)
       }
     }
     else if (getLocationFormPincodeError) {
-      console.log("getLocationFormPincodeError", getLocationFormPincodeError)
+      // console.log("getLocationFormPincodeError", getLocationFormPincodeError)
       setError(true)
       setMessage(getLocationFormPincodeError.data.message)
     }
@@ -319,7 +319,7 @@ console.log("navigation params from basic info",navigationParams)
   useEffect(() => {
     if (getFormData) {
       if (getFormData.message !== "Not Found") {
-        console.log("Form Fields", JSON.stringify(getFormData))
+        // console.log("Form Fields", JSON.stringify(getFormData))
 
         const values = Object.values(getFormData.body.template)
         setRegistrationForm(values)
@@ -332,13 +332,13 @@ console.log("navigation params from basic info",navigationParams)
 
     }
     else if (getFormError) {
-      console.log("Form Field Error", getFormError)
+      // console.log("Form Field Error", getFormError)
     }
   }, [getFormData, getFormError])
 
   useEffect(() => {
     if (registerUserData) {
-      console.log("data after submitting form", registerUserData)
+      // console.log("data after submitting form", registerUserData)
       if (registerUserData.success) {
         setSuccess(true)
         setMessage("Thank you for joining Tibcon Loyalty program, we will get back to you within 1-2 working days")
@@ -350,7 +350,7 @@ console.log("navigation params from basic info",navigationParams)
       // setRegistrationForm(values)
     }
     else if (registerUserError) {
-      console.log("form submission error", registerUserError)
+      // console.log("form submission error", registerUserError)
       setError(true)
       setMessage(registerUserError.data.message)
       setHideButton(false)
@@ -360,7 +360,7 @@ console.log("navigation params from basic info",navigationParams)
 
   useEffect(() => {
     if (updateProfileAtRegistrationData) {
-      console.log("updateProfileAtRegistrationData", updateProfileAtRegistrationData)
+      // console.log("updateProfileAtRegistrationData", updateProfileAtRegistrationData)
       if (updateProfileAtRegistrationData.success) {
         setSuccess(true)
         setMessage(updateProfileAtRegistrationData.message)
@@ -383,7 +383,7 @@ console.log("navigation params from basic info",navigationParams)
       setOtpVisible(true);
     }
     else {
-      console.log("sendOtpError", sendOtpError)
+      // console.log("sendOtpError", sendOtpError)
     }
   }, [sendOtpData, sendOtpError])
 
@@ -425,7 +425,7 @@ console.log("navigation params from basic info",navigationParams)
   };
 
   const handleFetchPincode = (data) => {
-    console.log("pincode is", data)
+    // console.log("pincode is", data)s
     getLocationFromPinCode(data)
 
   }
@@ -434,7 +434,7 @@ console.log("navigation params from basic info",navigationParams)
   const handleChildComponentData = data => {
     if(data?.name == "aadhar")
     {
-      console.log("handleChildComponentData", data)
+      // console.log("handleChildComponentData", data)
 
     }
     // setOtpVisible(true)
@@ -474,10 +474,6 @@ console.log("navigation params from basic info",navigationParams)
       
     }
     
-
-
-
-
     if (data?.name === "mobile") {
       const reg = '^([0|+[0-9]{1,5})?([6-9][0-9]{9})$';
       const mobReg = new RegExp(reg)
@@ -514,13 +510,13 @@ console.log("navigation params from basic info",navigationParams)
     });
   };
 
-  console.log("responseArray", responseArray)
+  // console.log("responseArray", responseArray)
   const modalClose = () => {
     setError(false);
   };
 
   const getLocationFromPinCode =  (pin) => {
-    console.log("getting location from pincode",pin)
+    // console.log("getting location from pincode",pin)
     var url = `http://postalpincode.in/api/pincode/${pin}`
 
   fetch(url).then(response => response.json()).then(json => {
@@ -563,16 +559,16 @@ console.log("navigation params from basic info",navigationParams)
   };
 
   const getOTPfunc = () => {
-    console.log("get user data", userData)
+    // console.log("get user data", userData)
 
-    console.log("ooooooo->>>>>>>>", { userName, userMobile, userTypeId, userType })
+    // console.log("ooooooo->>>>>>>>", { userName, userMobile, userTypeId, userType })
     const params = { mobile: userMobile, name: userName, user_type_id: userTypeId, user_type: userType,type:'login' }
     sendOtpFunc(params)
   }
 
   const panVerified =(bool)=>{
     
-    console.log("Pan Verified",bool)
+    // console.log("Pan Verified",bool)
 
     if(bool)
     {
@@ -586,7 +582,7 @@ console.log("navigation params from basic info",navigationParams)
   }
 
 
-  console.log("panVerifiedhideButton",hideButton)
+  // console.log("panVerifiedhideButton",hideButton)
 
   const addharVerified = (bool)=>{
     // console.log("aadhar text input status", bool)
@@ -700,7 +696,7 @@ console.log("navigation params from basic info",navigationParams)
 // };
 
 const handleRegistrationFormSubmission = () => {
-  console.log("handleRegistrationFormSubmission", responseArray);
+  // console.log("handleRegistrationFormSubmission", responseArray);
   const inputFormData = {};
   let isFormValid = true; 
   let missingParam = "";
@@ -716,14 +712,14 @@ const handleRegistrationFormSubmission = () => {
   for (let i = 0; i < responseArray.length; i++) {
       responseMap.set(responseArray[i].name, responseArray[i].value);
   }
-console.log("responseMap",responseMap)
+// console.log("responseMap",responseMap)
   // Check for required fields and missing values
   for (let i = 0; i < registrationForm.length; i++) {
       const field = registrationForm[i];
-      console.log("Field", field)
+      // console.log("Field", field)
       if (field.required) {
           const value = responseMap.get(field.name);
-          console.log("didnt get value for",value,field.name)
+          // console.log("didnt get value for",value,field.name)
           if (!value) {
               isFormValid = false;
               missingParam = field.label;
@@ -737,7 +733,7 @@ console.log("responseMap",responseMap)
       }
   }
 
-  console.log("missing params", missingParam);
+  // console.log("missing params", missingParam);
 
   // Populate inputFormData with responseArray values
   for (let i = 0; i < responseArray.length; i++) {
@@ -745,7 +741,7 @@ console.log("responseMap",responseMap)
   }
 
   const body = inputFormData;
-  console.log("registration output", body);
+  // console.log("registration output", body);
 
   if (otpVerified) {
       const keys = Object.keys(body);
@@ -879,7 +875,7 @@ console.log("responseMap",responseMap)
           {registrationForm &&
             registrationForm.map((item, index) => {
               if (item.type === 'text') {
-                console.log("the user name", userName)
+                // console.log("the user name", userName)
                 if ((item.name === 'phone' || item.name === "mobile")) {
                   return (
                     <>
@@ -937,7 +933,7 @@ console.log("responseMap",responseMap)
 
 
 
-                      {console.log("conditions", otpVerified, otpVisible)}
+                      {/* {console.log("conditions", otpVerified, otpVisible)} */}
                       {!otpVerified && otpVisible &&
                         <>
 
@@ -1008,7 +1004,7 @@ console.log("responseMap",responseMap)
 
                 // } 
                 else if (item.name === 'aadhaar' || item.name === "aadhar") {
-                  console.log("aadhar")
+                  // console.log("aadhar")
                   return (
                     <TextInputAadhar
                       required={item.required}

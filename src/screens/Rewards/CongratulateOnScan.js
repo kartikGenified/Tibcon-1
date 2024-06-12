@@ -178,7 +178,7 @@ useEffect(() => {
 
   
 
-const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
+const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader2.gif')).uri;
 
 
   const fetchRewardsAccToWorkflow = async () => {
