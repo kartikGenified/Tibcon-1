@@ -453,7 +453,7 @@ const PointHistory = ({ navigation }) => {
            
             <DisplayEarnings></DisplayEarnings>
             <Header></Header>
-            <PointCategoryTab></PointCategoryTab>
+            {/* <PointCategoryTab></PointCategoryTab> */}
 
             {
                 displayList.length==0 && !isLoading &&
