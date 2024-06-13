@@ -262,7 +262,7 @@ const Splash = ({ navigation }) => {
           return item.user_type === parsedJsonValue.user_type
         })
         tempDrawerData &&  dispatch(setDrawerData(tempDrawerData[0]))
-      getFormData && minVersionSupport && getAppMenuData && getDashboardData && getWorkflowData && getBannerData && navigation.reset({ index: '0', routes: [{ name: 'Dashboard' }] })
+      getFormData  && getAppMenuData && getDashboardData && getWorkflowData && getBannerData && navigation.reset({ index: '0', routes: [{ name: 'Dashboard' }] })
 
       }
       
@@ -607,7 +607,7 @@ const Splash = ({ navigation }) => {
       }
     }
     else if (getMinVersionSupportError) {
-      // console.log("getMinVersionSupportError", getMinVersionSupportError)
+      console.log("getMinVersionSupportError", getMinVersionSupportError)
     }
   }, [getMinVersionSupportData, getMinVersionSupportError])
 
@@ -672,12 +672,11 @@ const Splash = ({ navigation }) => {
       setShowLoading(false)
       if (value === "Yes") 
       {   
-       __DEV__ && setLocationCheckVisited(true)
-       minVersionSupport   && locationStatusChecked && navigation.navigate('OtpLogin',{ needsApproval: manualApproval.includes(userList?.[0].user_type),userType:userList?.[0]?.user_type,userId:userList?.[0]?.user_type_id, registrationRequired:registrationRequired}) 
+       navigation.navigate('SelectUser') 
       }
       else 
       {
-       (!__DEV__) ?  minVersionSupport && locationStatusChecked  && navigation.navigate('Introduction')  :  navigation.navigate('Introduction')
+        navigation.navigate('Introduction')  
       }
       // console.log("isAlreadyIntroduced",isAlreadyIntroduced,gotLoginData)
 

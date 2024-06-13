@@ -7,7 +7,7 @@ export const minVersionApi = baseApi.injectEndpoints({
             query(minVersion){
                 console.log("From min version api",minVersion)
                 return {
-                    url:`/api/tenant/app-versions/check`,
+                    url:`api/tenant/app-versions/check`,
                     method:'post',
                     headers:{
                         "slug":slug,
